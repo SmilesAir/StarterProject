@@ -1,8 +1,8 @@
 
 
-module.exports.testLambda = function(event, context, callback) {
+const Common = require("./common.js")
 
-    console.log(event)
+module.exports.handler = (e, c, cb) => { Common.handler(e, c, cb, async (event, context) => {
+    return "Does this work?"
+})}
 
-    callback(null, "does this work?")
-}
