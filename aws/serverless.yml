@@ -1,5 +1,5 @@
 # serverless.yml
-service: CompleteJudging
+service: StarterProject
 
 provider:
   name: aws
