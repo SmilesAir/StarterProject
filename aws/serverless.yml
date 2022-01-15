@@ -3,12 +3,12 @@ service: StarterProject
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs14.x
   region: us-west-2
   stage: ${opt:stage, "development"}
 
   environment:
-    TEST_TABLE: ${self:provider.stage}-testTable
+    TEST_TABLE: ${self:service}-${self:provider.stage}-testTable
 
   iamRoleStatements:
     - Effect: Allow
