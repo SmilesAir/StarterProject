@@ -3,7 +3,7 @@ service: StarterProject
 
 provider:
   name: aws
-  runtime: nodejs16.x
+  runtime: nodejs20.x
   region: us-west-2
   stage: ${opt:stage, "development"}
 
@@ -31,17 +31,24 @@ functions:
 
 resources:
   Resources:
-    testTable:
+    dataTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:provider.environment.TEST_TABLE}
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:provider.environment.DATA_TABLE}
         AttributeDefinitions:
           - AttributeName: key
             AttributeType: S
         KeySchema:
           - AttributeName: key
             KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
 
+plugins:
+  - fullstack-serverless
+  - ./public-policy-workaround.js
+
+custom:
+  fullstack:
+    bucketName: deployed-bucket
+    distributionFolder: ../client/builds/web
+    indexDocument: index.html
